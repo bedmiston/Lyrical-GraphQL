@@ -1,8 +1,14 @@
 import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 class LryicList extends Component {
   likeHandler(id) {
-    console.log(id);
+    this.props.mutate({
+      variables: {
+        id: id
+      }
+    });
   }
 
   renderLyrics() {
@@ -22,5 +28,14 @@ class LryicList extends Component {
     return <ul className="collection">{this.renderLyrics()}</ul>;
   }
 }
+
+const mutation = gql`
+  mutation LikeLyric($id: ID) {
+    likeLyric(id: $id) {
+      id
+      likes
+    }
+  }
+`;
 
 export default LryicList;
