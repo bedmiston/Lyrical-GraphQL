@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
+import fetchSong from "../queries/fetchSong";
 
 class LyricCreate extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ const mutation = gql`
     addLyricToSong(content: $content, songId: $songId) {
       id
       lyrics {
+        id
         content
       }
     }
