@@ -4,21 +4,20 @@ import gql from "graphql-tag";
 
 class LryicList extends Component {
   likeHandler(id) {
-    this.props.mutate({
-      variables: {
-        id: id
-      }
-    });
+    this.props.mutate({ variables: { id } });
   }
 
   renderLyrics() {
-    return this.props.lyrics.map(({ id, content }) => {
+    return this.props.lyrics.map(({ id, content, likes }) => {
       return (
         <li key={id} className="collection-item">
           {content}
-          <i className="material-icons" onClick={() => this.likeHandler(id)}>
-            thumb_up
-          </i>
+          <div className="vote-box">
+            <i className="material-icons" onClick={() => this.likeHandler(id)}>
+              thumb_up
+            </i>
+            {likes}
+          </div>
         </li>
       );
     });
@@ -38,4 +37,4 @@ const mutation = gql`
   }
 `;
 
-export default LryicList;
+export default graphql(mutation)(LryicList);
